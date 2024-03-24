@@ -16,8 +16,14 @@ public class CsvWriter {
             writer.write(String.format("x,\"calc(x,%f)\"\n", precision));
             double cursor = start;
             do {
-                double result = module.calc(cursor, precision);
-                writer.write(String.format("%f,%f\n", cursor, result));
+                try {
+                    double result = module.calc(cursor, precision);
+                    writer.write(String.format("%f,%f\n", cursor, result));
+                } catch (IllegalArgumentException e) {
+                    writer.write(String.format("%f,NaN\n", cursor));
+                } catch (ArithmeticException e) {
+                    writer.write(String.format("%f,precision\n", cursor));
+                }
             } while ((cursor += step) < stop);
         }
     }

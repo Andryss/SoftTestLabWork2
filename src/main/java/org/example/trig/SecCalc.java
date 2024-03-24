@@ -8,6 +8,10 @@ public class SecCalc {
     private final CosCalc cosCalc;
 
     public double sec(double x, double precision) {
-        return 0;
+        if (precision <= 0) {
+            throw new IllegalArgumentException("Precision must be more than zero");
+        }
+        double cos = cosCalc.cos(x, precision * 1e-1);
+        return 1 / cos;
     }
 }

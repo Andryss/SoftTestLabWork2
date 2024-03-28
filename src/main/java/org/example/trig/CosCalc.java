@@ -14,8 +14,8 @@ public class CosCalc {
         if (precision <= 0) {
             throw new IllegalArgumentException("Precision must be more than zero");
         }
-        double sin = sinCalc.sin(x, precision * 1e-1);
-        double cos = sqrt(1 - sin * sin);
+        double sin = sinCalc.sin(x, precision * precision);
+        double cos = sqrt(Math.max(1 - sin * sin, 0));
         x = ranged(x);
         return (x > -Math.PI/2 && x < Math.PI/2) ? cos : -cos;
     }

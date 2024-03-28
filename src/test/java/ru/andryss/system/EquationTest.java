@@ -1,10 +1,10 @@
-package org.example.system;
+package ru.andryss.system;
 
-import org.example.log.LnCalc;
-import org.example.log.LogCalc;
-import org.example.trig.CosCalc;
-import org.example.trig.SecCalc;
-import org.example.trig.SinCalc;
+import ru.andryss.log.LnCalc;
+import ru.andryss.log.LogCalc;
+import ru.andryss.trig.CosCalc;
+import ru.andryss.trig.SecCalc;
+import ru.andryss.trig.SinCalc;
 import org.junit.Before;
 import org.junit.Test;
 

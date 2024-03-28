@@ -1,9 +1,9 @@
-package org.example.trig;
+package ru.andryss.trig;
 
 import lombok.RequiredArgsConstructor;
+import ru.andryss.util.TrigUtil;
 
 import static java.lang.Math.sqrt;
-import static org.example.util.TrigUtil.ranged;
 
 @RequiredArgsConstructor
 public class CosCalc {
@@ -16,7 +16,7 @@ public class CosCalc {
         }
         double sin = sinCalc.sin(x, precision * precision);
         double cos = sqrt(Math.max(1 - sin * sin, 0));
-        x = ranged(x);
+        x = TrigUtil.ranged(x);
         return (x > -Math.PI/2 && x < Math.PI/2) ? cos : -cos;
     }
 

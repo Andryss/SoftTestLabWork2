@@ -1,4 +1,4 @@
-package org.example.trig;
+package ru.andryss.trig;
 
 import org.junit.Test;
 

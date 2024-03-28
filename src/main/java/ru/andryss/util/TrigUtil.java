@@ -1,4 +1,4 @@
-package org.example.util;
+package ru.andryss.util;
 
 public class TrigUtil {
 

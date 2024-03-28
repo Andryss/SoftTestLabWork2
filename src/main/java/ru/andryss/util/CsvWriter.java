@@ -1,6 +1,6 @@
-package org.example.util;
+package ru.andryss.util;
 
-import org.example.Calculator;
+import ru.andryss.Calculator;
 
 import java.io.File;
 import java.io.FileWriter;

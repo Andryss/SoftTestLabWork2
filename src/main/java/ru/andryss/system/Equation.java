@@ -1,9 +1,9 @@
-package org.example.system;
+package ru.andryss.system;
 
 import lombok.RequiredArgsConstructor;
-import org.example.log.LnCalc;
-import org.example.log.LogCalc;
-import org.example.trig.SecCalc;
+import ru.andryss.log.LnCalc;
+import ru.andryss.log.LogCalc;
+import ru.andryss.trig.SecCalc;
 
 import static java.lang.Math.pow;
 

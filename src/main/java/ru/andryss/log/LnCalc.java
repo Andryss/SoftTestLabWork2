@@ -1,4 +1,4 @@
-package org.example.log;
+package ru.andryss.log;
 
 import java.math.BigDecimal;
 

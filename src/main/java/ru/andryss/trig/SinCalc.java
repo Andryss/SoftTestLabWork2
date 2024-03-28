@@ -1,15 +1,16 @@
-package org.example.trig;
+package ru.andryss.trig;
+
+import ru.andryss.util.TrigUtil;
 
 import java.math.BigDecimal;
 
 import static java.math.BigDecimal.*;
 import static java.math.MathContext.DECIMAL128;
-import static org.example.util.TrigUtil.ranged;
 
 public class SinCalc {
 
     public double sin(double x, double precision) {
-        x = ranged(x);
+        x = TrigUtil.ranged(x);
         if (precision <= 0) {
             throw new IllegalArgumentException("Precision must be more than zero");
         }

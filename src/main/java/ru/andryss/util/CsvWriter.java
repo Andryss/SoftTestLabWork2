@@ -20,9 +20,9 @@ public class CsvWriter {
                     double result = module.calc(cursor, precision);
                     writer.write(String.format("%f,%f\n", cursor, result));
                 } catch (IllegalArgumentException e) {
-                    writer.write(String.format("%f,NaN\n", cursor));
+                    System.out.println("WARN: module produced NaN at " + cursor);
                 } catch (ArithmeticException e) {
-                    writer.write(String.format("%f,precision\n", cursor));
+                    System.out.println("WARN: module can't reach precision at " + cursor);
                 }
             } while ((cursor += step) < stop);
         }

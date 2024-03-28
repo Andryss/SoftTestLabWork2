@@ -45,11 +45,13 @@ public class App {
     }
 
     private static void tryCreateFileAndTest(String filename, CsvWriter writer, Calculator module) throws IOException {
+        System.out.println("Testing module " + module);
         File sinOut = new File(filename);
         if (!sinOut.exists() && !sinOut.createNewFile()) {
             throw new IOException(String.format("Cannot create %s file", filename));
         }
-        writer.testAndSave(module, -5, 5, 0.1, 1e-6, sinOut);
+        writer.testAndSave(module, -5, 5, 0.01, 1e-6, sinOut);
+        System.out.println("Module " + module + " was tested, results were recorded in " + filename);
     }
 
 }

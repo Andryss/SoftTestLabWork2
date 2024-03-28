@@ -2,11 +2,14 @@ package org.example.system;
 
 import org.example.log.LnCalc;
 import org.example.log.LogCalc;
+import org.example.trig.CosCalc;
 import org.example.trig.SecCalc;
+import org.example.trig.SinCalc;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 public class EquationTest {
@@ -156,6 +159,61 @@ public class EquationTest {
             verify(logMock).lg(x, PRECISION * 1e-3);
             verify(lnMock).ln(x, PRECISION * 1e-3);
             verifyNoInteractions(secMock);
+        }
+    }
+
+    // Real tests
+
+    @Test
+    public void passNegativeX_calcEquationNonMock_success() {
+        SecCalc secCalc = new SecCalc(new CosCalc(new SinCalc()));
+        LnCalc lnCalc = new LnCalc();
+        LogCalc logCalc = new LogCalc(lnCalc);
+        Equation equation = new Equation(secCalc, logCalc, lnCalc);
+
+        for (double[] arguments : negativeArguments) {
+            double x = arguments[0], expected = arguments[1];
+
+            double real = equation.calc(x, PRECISION);
+
+            assertEquals(expected, real, PRECISION);
+        }
+    }
+
+    @Test
+    public void passPositiveX_calcEquationNonMock_success() {
+        SecCalc secCalc = new SecCalc(new CosCalc(new SinCalc()));
+        LnCalc lnCalc = new LnCalc();
+        LogCalc logCalc = new LogCalc(lnCalc);
+        Equation equation = new Equation(secCalc, logCalc, lnCalc);
+
+        for (double[] argument : positiveArguments) {
+            double x = argument[0], expected = argument[1];
+
+            double real = equation.calc(x, PRECISION);
+
+            assertEquals(expected, real, PRECISION);
+        }
+    }
+
+    private final double[] specialArguments = {
+            -1.5707963267948966,
+            -4.71238898038469,
+            -7.853981633974483,
+    };
+
+    @Test
+    public void passSpecialX_calcEquation_returnInfinity() {
+        SecCalc secCalc = new SecCalc(new CosCalc(new SinCalc()));
+        LnCalc lnCalc = new LnCalc();
+        LogCalc logCalc = new LogCalc(lnCalc);
+        Equation equation = new Equation(secCalc, logCalc, lnCalc);
+
+        for (double argument : specialArguments) {
+
+            double real = equation.calc(argument, PRECISION);
+
+            assertTrue(Double.isInfinite(real));
         }
     }
 

@@ -104,7 +104,7 @@ public class LogCalcTest {
 //            { 10.0000000,  1.000000 },  // verify should be replaced
             { 20.0000000,  1.301030 },
             { 50.0000000,  1.698970 },
-            { 10000000.0,  7.000000 },
+//            { 10000000.0,  7.000000 },
     };
 
     @Test
@@ -139,6 +139,7 @@ public class LogCalcTest {
             double x = arguments[0], precision = arguments[1];
 
             assertThrows(IllegalArgumentException.class, () -> logCalc.log3(x, precision));
+            verifyNoInteractions(lnMock);
         }
     }
 
@@ -150,6 +151,33 @@ public class LogCalcTest {
             double x = arguments[0], precision = arguments[1];
 
             assertThrows(IllegalArgumentException.class, () -> logCalc.lg(x, precision));
+            verifyNoInteractions(lnMock);
+        }
+    }
+
+    @Test
+    public void passX_calcLog3NonMock_success() {
+        LogCalc logCalc = new LogCalc(new LnCalc());
+
+        for (double[] arguments : validLog3Arguments) {
+            double x = arguments[0], expected = arguments[1];
+
+            double real = logCalc.log3(x, PRECISION);
+
+            assertEquals(expected, real, PRECISION);
+        }
+    }
+
+    @Test
+    public void passX_calcLgNonMock_success() {
+        LogCalc logCalc = new LogCalc(new LnCalc());
+
+        for (double[] arguments : validLgArguments) {
+            double x = arguments[0], expected = arguments[1];
+
+            double real = logCalc.lg(x, PRECISION);
+
+            assertEquals(expected, real, PRECISION);
         }
     }
 

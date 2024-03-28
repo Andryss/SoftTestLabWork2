@@ -17,7 +17,7 @@ public class SecCalcTest {
             { -3.0000000, -0.9899925 },
             { -2.5000000, -0.8011436 },
             { -2.0000000, -0.4161468 },
-            { -1.5707963,  0.0000000 },
+            { -1.570796326,  0.0000000 },
             { -1.5000000,  0.0707372 },
             { -1.0000000,  0.5403023 },
             { -0.5000000,  0.8775826 },
@@ -25,7 +25,7 @@ public class SecCalcTest {
             {  0.5000000,  0.8775826 },
             {  1.0000000,  0.5403023 },
             {  1.5000000,  0.0707372 },
-            {  1.5707963,  0.0000000 },
+            {  1.570796326,  0.0000000 },
             {  2.0000000, -0.4161468 },
             {  2.5000000, -0.8011436 },
             {  3.0000000, -0.9899925 },
@@ -81,8 +81,8 @@ public class SecCalcTest {
     }
 
     private final double[] specialArguments = {
-            -1.5707963,
-             1.5707963,
+            -1.570796326,
+             1.570796326,
     };
 
     @Test
@@ -111,6 +111,32 @@ public class SecCalcTest {
             double x = arguments[0], precision = arguments[1];
 
             assertThrows(IllegalArgumentException.class, () -> secCalc.sec(x, precision));
+            verifyNoInteractions(cosMock);
+        }
+    }
+
+    @Test
+    public void passX_calcCosNonMock_success() {
+        SecCalc secCalc = new SecCalc(new CosCalc(new SinCalc()));
+
+        for (double[] arguments : validArguments) {
+            double x = arguments[0], expected = arguments[1];
+
+            double real = secCalc.sec(x, PRECISION);
+
+            assertEquals(expected, real, PRECISION);
+        }
+    }
+
+    @Test
+    public void passSpecialX_calcCosNonMock_returnInfinity() {
+        SecCalc secCalc = new SecCalc(new CosCalc(new SinCalc()));
+
+        for (double x : specialArguments) {
+
+            double real = secCalc.sec(x, PRECISION);
+
+            assertTrue(Double.isInfinite(real));
         }
     }
 

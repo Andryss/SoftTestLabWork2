@@ -24,25 +24,27 @@ public class LnCalc {
     }
 
     private double ln0(double x, double precision) {
-        BigDecimal res = ZERO;
+        BigDecimal res = ZERO, part, prevPart = res;
         for (int n = 1; n <= 1000; n++) {
-            BigDecimal part = valueOf(x - 1).pow(n).divide(valueOf(n), DECIMAL128);
+            part = valueOf(x - 1).pow(n).divide(valueOf(n), DECIMAL128);
             res = res.add(n % 2 == 0 ? part.negate() : part);
-            if (part.abs().doubleValue() < precision) {
+            if (part.abs().doubleValue() < precision && part.subtract(prevPart).abs().doubleValue() < precision) {
                 return res.doubleValue();
             }
+            prevPart = part;
         }
         throw new ArithmeticException("Precision can't be reached");
     }
 
     private double ln1(double x, double precision) {
-        BigDecimal res = valueOf(ln(x - 1, precision));
+        BigDecimal res = valueOf(ln(x - 1, precision)), part, prevPart = res;
         for (int n = 1; n <= 1000; n++) {
-            BigDecimal part = ONE.divide(valueOf(x - 1).pow(n), DECIMAL128).divide(valueOf(n), DECIMAL128);
+            part = ONE.divide(valueOf(x - 1).pow(n), DECIMAL128).divide(valueOf(n), DECIMAL128);
             res = res.add(n % 2 == 0 ? part.negate() : part);
-            if (part.abs().doubleValue() < precision) {
+            if (part.abs().doubleValue() < precision && part.subtract(prevPart).abs().doubleValue() < precision) {
                 return res.doubleValue();
             }
+            prevPart = part;
         }
         throw new ArithmeticException("Precision can't be reached");
     }
